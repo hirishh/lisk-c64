@@ -1,0 +1,13 @@
+[
+  {
+    "name"              : "lisk-c64",
+    "script"            : "dist/bin/index.js",
+    "log_date_format"   : "YYYY-MM-DD HH:mm Z",
+    "merge_logs"        : false,
+    "watch"             : false,
+    "max_restarts"      : 10,
+    "exec_interpreter"  : "node",
+    "exec_mode"         : "fork_mode",
+    "env"               : {"DEBUG": "lisk-c64:*", "DEBUG_COLORS": true}
+  }
+]

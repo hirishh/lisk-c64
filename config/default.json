@@ -1,0 +1,17 @@
+{
+  "devMode": false,
+  "liskNode": "https://node05.lisk.io",
+  "liskSupportApi": "https://api.lisk.support/v1",
+  "coinMarketCapApi_TickerLisk": "https://api.coinmarketcap.com/v2/ticker/1214/",
+  "pools": ["ascend", "elite", "eliteSupporters", "gdt", "lig", "liskBuilders", "sherwood"],
+  "hirishDonation": "17670127987160191762L",
+  "liskSupportDonation": "5471811853702363574L",
+  "vekexasiaDonation": "9102643396261850794L",
+  "nodeList": [
+    "https://node01.lisk.io",
+    "https://node02.lisk.io",
+    "https://node03.lisk.io",
+    "https://node04.lisk.io",
+    "https://node05.lisk.io"
+  ]
+}

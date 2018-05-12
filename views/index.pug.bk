@@ -1,0 +1,13 @@
+extends layout
+
+block content
+  .frame
+    h1.heading **** Commodore 64 ****
+    h2.heading 64K ram system 38911 basic bytes free
+    span.heading.heading_span Ready .
+    // <span class="blinky_cursor"></span>
+    #terminal(onclick="$('setter').focus();")
+      textarea#setter(type='text', onkeydown='writeit(this, event);moveIt(this.value.length, event)', onkeyup='writeit(this, event)', onkeypress='writeit(this, event);', autofocus='')
+      #getter
+        span#writer
+        b#cursor.cursor H
