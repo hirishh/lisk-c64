@@ -8,6 +8,10 @@ const liskoshi = 100000000;
 
 const apiUrl = config.get("liskSupportApi");
 
+function removeSpaces(str) {
+  return str.replace(/\s+/g, '_');
+}
+
 const getDelegateInfo = async function(username) {
 
   const [resError, resCall] = await to(dposWrapper.dposAPI.delegates.getByUsername(username));
@@ -44,11 +48,16 @@ const getPools = async function() {
   if(resError)
     return "?API Error.";
 
-  return "Active Paying pools are: <br /><br />" + _.keys(resCall).join(", ") + "<br /><br />" +
+  const keyTransformationObj = _.transform(resCall, function(result, value, key) {
+    result[removeSpaces(key)] = value;
+  }, {});
+
+  return "Active Paying pools are: <br /><br />" + _.keys(keyTransformationObj).join(", ") + "<br /><br />" +
     "Use command PI or POOLINFO &lt;poolname&gt; to get more info."
 };
 
 const getPoolsInfo = async function(pool) {
+  pool = pool.toLowerCase();
   const [resError, resCall] = await to(request.get({
     url: apiUrl + "/delegatepayoutinfo/",
     json: true
@@ -57,11 +66,15 @@ const getPoolsInfo = async function(pool) {
   if(resError)
     return "?API Error.";
 
-  const activePools = _.keys(resCall);
+  const keyTransformationObj = _.transform(resCall, function(result, value, key) {
+    result[removeSpaces(key)] = value;
+  }, {});
+
+  const activePools = _.keys(keyTransformationObj);
   if(_.indexOf(activePools, pool) === -1)
     return "Pool not found.";
 
-  const poolObj = resCall[pool];
+  const poolObj = keyTransformationObj[pool];
 
   return 'Pool Link: <a href="' + poolObj.poolLink + '" target="_blank">Click Here</a><br />' +
     'Min Payout: ' + poolObj.minimumPayout + ' Lisk<br />' +
