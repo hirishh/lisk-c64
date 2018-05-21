@@ -8,11 +8,11 @@
   "liskSupportDonation": "5471811853702363574L",
   "vekexasiaDonation": "9102643396261850794L",
   "nodeList": [
-    "https://node01.lisk.io",
-    "https://node02.lisk.io",
-    "https://node03.lisk.io",
-    "https://node04.lisk.io",
-    "https://node05.lisk.io",
-    "https://liskwallet.punkrock.me"
+    "node01.lisk.io",
+    "node02.lisk.io",
+    "node03.lisk.io",
+    "node04.lisk.io",
+    "node05.lisk.io",
+    "liskwallet.punkrock.me"
   ]
 }

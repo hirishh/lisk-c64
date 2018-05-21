@@ -14,7 +14,7 @@ const getBlockHeights = async function(username) {
   for(let i = 0; i < nodeList.length; i++)
   {
     const [resError, resCall] = await to(request.get({
-      url: nodeList[i] + "/api/blocks/getHeight",
+      url: "https://" + nodeList[i] + "/api/blocks/getHeight",
       json: true
     }));
 
@@ -22,16 +22,27 @@ const getBlockHeights = async function(username) {
       nodeHeights.push({node: nodeList[i], height: resCall.height});
   }
 
-  _.sortBy(nodeHeights, ['node']);
+  _.sortBy(nodeHeights, [function(o) { return o.node; }]);
   return resultToHtml(nodeHeights);
 };
 
 function resultToHtml(nodeHeights) {
-  let html = "<pre style='font-family:inherit'>Heights from Lisk Public Nodes<br /><br />";
+
+  let html = "<table>" +
+    "<tr>" +
+    "  <th>Node</th>" +
+    "  <th>Block Height</th>" +
+    "</tr>";
+
   _.forEach(nodeHeights, (obj) => {
-    html += obj.node + "&#9;&#9;" + obj.height + "<br />";
+
+    html += "<tr>";
+    html += "  <td>" + obj.node + "</td>";
+    html += "  <td>" + obj.height + "</td>";
+    html += "</tr>";
+
   });
-  html += "</pre>";
+  html += "</table>";
   return html;
 }
 

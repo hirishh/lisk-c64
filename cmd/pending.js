@@ -15,34 +15,36 @@ const getPendings = async function(address) {
   if(resError)
     return "API Error.";
 
-  return jsonToHtml(resCall);
+  return pendingsToTable(resCall);
 };
 
-function jsonToHtml(pendings) {
-  let html = "<pre style='font-family:inherit'><span style='color: gray'>Data from lisk.support. Tnx to @TonyT908</span><br /><br />";
+function pendingsToTable(pendings) {
+  let html = "<span style='color: gray'>Data from lisk.support. Tnx to @TonyT908</span><br /><br />";
+  html += "<table>" +
+    "<tr>" +
+    "  <th>Pool</th>" +
+    "  <th>Pending</th>" +
+    "</tr>";
 
   _.forEach(pendings, (value, key) => {
 
     if(key.toUpperCase() !== "TOTAL") {
 
-      var tabs = 4;
+      html += "<tr>";
+      html += "  <td>" + key + "</td>";
+      html += "  <td>" + value + "</td>";
+      html += "</tr>";
 
-      if(key.length <= 10 && key.length > 7)
-        tabs  = 3;
-      if(key.length > 10)
-        tabs = 2;
-
-      html += key;
-      for(var i = 0; i<tabs; i++)
-        html +="&#9;"
-      html += value + "<br />";
     }
     else {
-      html += "<br /><span style='color: #FF420E'>" + key + "&#9;&#9;&#9;&#9;" + value + "</span></pre>";
-
+      html += "<tr style='color: #FF420E'>";
+      html += "  <td>" + key + "</td>";
+      html += "  <td>" + value + "</td>";
+      html += "</tr>";
     }
-
   });
+
+  html += "</table>";
   return html;
 }
 
