@@ -5,11 +5,11 @@ const getDonationInfo = function() {
     "Vote for delegate  <span style='color:#FF420E'>hirish</span><br />" +
     "Donate to hirish here: " + config.get("hirishDonation") + "<br /><br />" +
 
-    "This tool use <span style='color:#FF420E'>Lisk.Support</span> API and Data.<br />" +
+    "This tool uses <span style='color:#FF420E'>Lisk.Support</span> API and Data.<br />" +
     "Feel free to vote for them and<br />" +
     "show some love here: " + config.get("liskSupportDonation") + "<br /><br />" +
 
-    "This tool use also <span style='color:#FF420E'>vekexasia</span> API-tools and Data.<br />" +
+    "This tool uses also <span style='color:#FF420E'>vekexasia</span> API-tools and Data.<br />" +
     "Feel free to vote for him and<br />" +
     "show some love here: " + config.get("vekexasiaDonation") + "<br /><br />" +
 
