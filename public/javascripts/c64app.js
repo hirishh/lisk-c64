@@ -48,8 +48,6 @@ function processInput(data) {
 
 function showResult(result) {
 
-  console.info(result);
-
   if(result.success !== true) {
     terminal.print("?SYNTAX ERROR");
     terminal.beep();
