@@ -39,7 +39,7 @@ const getDelegateInfo = async function(username) {
     "Total Forged: " + forgCall.forged / liskoshi;
 };
 
-const getPools = async function() {
+const getPools = async function(onlyData) {
   const [resError, resCall] = await to(request.get({
     url: apiUrl + "/delegatepayoutinfo/",
     json: true
@@ -51,6 +51,9 @@ const getPools = async function() {
   const keyTransformationObj = _.transform(resCall, function(result, value, key) {
     result[removeSpaces(key)] = value;
   }, {});
+
+  if(onlyData)
+    return keyTransformationObj;
 
   return "Active Paying pools are: <br /><br />" + _.keys(keyTransformationObj).join(", ") + "<br /><br />" +
     "Use command PI or POOLINFO &lt;poolname&gt; to get more info."
