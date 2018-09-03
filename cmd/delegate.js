@@ -2,8 +2,12 @@ import to from "await-to-js";
 const config = require('config');
 const _ = require("lodash");
 const request = require('request-promise-native');
-const dposWrapper = require('dpos-api-wrapper');
-dposWrapper.dposAPI.nodeAddress = config.get("liskNode");
+const lisk = require("lisk-elements");
+
+const devMode = config.get("devMode");
+let client = lisk.APIClient.createMainnetAPIClient();
+if (devMode) client = lisk.APIClient.createTestnetAPIClient();
+
 const liskoshi = 100000000;
 
 const apiUrl = config.get("liskSupportApi");
@@ -14,29 +18,29 @@ function removeSpaces(str) {
 
 const getDelegateInfo = async function(username) {
 
-  const [resError, resCall] = await to(dposWrapper.dposAPI.delegates.getByUsername(username));
+  const [resError, resCall] = await to(client.delegates.get({ username }));
 
   if(resError)
     return "?API Error";
 
-  if(resCall && !resCall.success)
+  if(resCall && resCall.data.length === 0)
     return "?Delegate not found.";
 
-  const [forgError, forgCall] = await to(dposWrapper.dposAPI.delegates.getForgedByAccount(resCall.delegate.publicKey));
+  const [forgError, forgCall] = await to(client.delegates.getForgingStatistics(resCall.data[0].account.address));
 
-  if(forgError || (forgCall && !forgCall.success))
+  if(forgError || !forgCall)
     return "?API Error";
 
-  return "Address: " + resCall.delegate.address + "<br />" +
-    "Rank: " + resCall.delegate.rank + "<br />" +
-    "VoteWeight: " + resCall.delegate.vote / liskoshi + "<br />" +
-    "Approval: " + resCall.delegate.approval + "%<br />" +
-    "Productivity: " +  resCall.delegate.productivity + "%<br />" +
-    "Produced Blocks: " + resCall.delegate.producedblocks + "<br />" +
-    "Missed BLocks: " + resCall.delegate.missedblocks + "<br />" +
-    "Forged Fees: " + forgCall.fees / liskoshi+ "<br />" +
-    "Forged Rewards: " + forgCall.rewards / liskoshi + "<br />" +
-    "Total Forged: " + forgCall.forged / liskoshi;
+  return "Address: " + resCall.data[0].account.address + "<br />" +
+    "Rank: " + resCall.data[0].rank + "<br />" +
+    "VoteWeight: " + resCall.data[0].vote / liskoshi + "<br />" +
+    "Approval: " + resCall.data[0].approval + "%<br />" +
+    "Productivity: " +  resCall.data[0].productivity + "%<br />" +
+    "Produced Blocks: " + resCall.data[0].producedBlocks + "<br />" +
+    "Missed BLocks: " + resCall.data[0].missedBlocks + "<br />" +
+    "Forged Fees: " + forgCall.data.fees / liskoshi+ "<br />" +
+    "Forged Rewards: " + forgCall.data.rewards / liskoshi + "<br />" +
+    "Total Forged: " + forgCall.data.forged / liskoshi;
 };
 
 const getPools = async function(onlyData) {

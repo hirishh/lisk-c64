@@ -1,5 +1,3 @@
 {
-  "devMode": true,
-  "liskNode": "https://testnet.lisk.io",
-  "liskSupportApi": "https://api.lisk.support/v1"
+  "devMode": true
 }

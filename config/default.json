@@ -1,6 +1,5 @@
 {
   "devMode": false,
-  "liskNode": "https://node05.lisk.io",
   "liskSupportApi": "https://api.lisk.support/v1",
   "coinMarketCapApi_TickerLisk": "https://api.coinmarketcap.com/v2/ticker/1214/",
   "pools": ["ascend", "elite", "eliteSupporters", "gdt", "lig", "liskBuilders", "sherwood"],
